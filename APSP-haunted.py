@@ -87,7 +87,9 @@ def main():
     #    [MAX, MAX, 0, 1],
     #    [MAX, MAX, MAX, 0]
     #]
-    haunted = [0,1,0,1,0,1,0]
+    haunted = [0]*numVertices
+    for i in range(1, len(haunted)-1):
+        haunted[i] = random.randint(0, 1)
     graph = nx.gnm_random_graph(numVertices, random.randint(1, numVertices))
     for u,v,w in graph.edges(data=True):
         w['weight'] = np.random.randint(1,10)
@@ -97,8 +99,6 @@ def main():
         for j in range(len(graph[i])):
             if i != j and graph[i][j] == 0:
                 graph[i][j] = MAX
-    for g in graph:
-        print(g)
     # graph = [
     #     [0,1,MAX,MAX,MAX,MAX,MAX],
     #     [MAX,0,1,MAX,MAX,MAX,MAX],
