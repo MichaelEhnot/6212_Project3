@@ -1,5 +1,7 @@
-
 import copy
+import networkx as nx
+import numpy as np
+import random
 
 numVertices = 7
 maxHauntedGalaxies = 6
@@ -85,16 +87,27 @@ def main():
     #    [MAX, MAX, 0, 1],
     #    [MAX, MAX, MAX, 0]
     #]
-    haunted = [0,1,1,1,1,1,1]
-    graph = [
-        [0,1,MAX,MAX,MAX,MAX,MAX],
-        [MAX,0,1,MAX,MAX,MAX,MAX],
-        [MAX,MAX,0,1,MAX,MAX,MAX],
-        [MAX,MAX,MAX,0,1,MAX,MAX],
-        [MAX,MAX,MAX,MAX,0,1,MAX],
-        [MAX,MAX,MAX,MAX,MAX,0,1],
-        [MAX,MAX,MAX,MAX,MAX,MAX,0]
-    ]
+    haunted = [0,1,0,1,0,1,0]
+    graph = nx.gnm_random_graph(numVertices, random.randint(1, numVertices))
+    for u,v,w in graph.edges(data=True):
+        w['weight'] = np.random.randint(1,10)
+    graph = nx.to_numpy_array(graph)
+    graph = graph.tolist()
+    for i in range(len(graph)):
+        for j in range(len(graph[i])):
+            if i != j and graph[i][j] == 0:
+                graph[i][j] = MAX
+    for g in graph:
+        print(g)
+    # graph = [
+    #     [0,1,MAX,MAX,MAX,MAX,MAX],
+    #     [MAX,0,1,MAX,MAX,MAX,MAX],
+    #     [MAX,MAX,0,1,MAX,MAX,MAX],
+    #     [MAX,MAX,MAX,0,1,MAX,MAX],
+    #     [MAX,MAX,MAX,MAX,0,1,MAX],
+    #     [MAX,MAX,MAX,MAX,MAX,0,1],
+    #     [MAX,MAX,MAX,MAX,MAX,MAX,0]
+    # ]
 
     original = copy.deepcopy(graph)
 
