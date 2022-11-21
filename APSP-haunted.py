@@ -88,8 +88,8 @@ def main():
     #    [MAX, MAX, MAX, 0]
     #]
     haunted = [0]*numVertices
-    for i in range(1, len(haunted)-1):
-        haunted[i] = random.randint(0, 1)
+    for i in range(1, len(haunted)):
+        haunted[i] = 1
     graph = nx.gnm_random_graph(numVertices, random.randint(1, numVertices))
     for u,v,w in graph.edges(data=True):
         w['weight'] = np.random.randint(1,10)
